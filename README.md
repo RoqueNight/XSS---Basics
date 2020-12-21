@@ -244,6 +244,29 @@ const NoVulnerability2 = (req, res) => {
     }
 }
 
-
 ```
+JavaScript Code Example - Preventing specific characters 
+
+In the below code , we escape certian characters and convert them to HTML entities so that it gets parsed as text instead of actual code 
+```
+String.prototype.escape = function() {
+    var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return this.replace(/[&<>]/g, function(tag) {
+        return tagsToReplace[tag] || tag;
+    });
+};
+```
+
+General Tips to Avoid XSS in Web Applications:
+
+- Implement CSP (Content Security Policy)
+- Use HTTPOnly Cookie Flag
+- Consider Using an Auto-Escaping Template System such as AngularJS Strict Contextual Escaping
+- Use Modern up to date JS frameworks 
+- Utilize JavaScript libraries such as Yup & validator.js to help secure your code by validating user-suplied data
+
 

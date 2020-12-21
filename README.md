@@ -7,9 +7,9 @@ Cross-site scripting (also known as XSS) is a web security vulnerability that al
 
 Types of XSS
 
-- Reflected XSS         // where the malicious script comes from the current HTTP request.
-- Stored XSS            // where the malicious script comes from the website's database.
-- DOM-based XSS         // where the vulnerability exists in client-side code rather than server-side code.
+- Reflected XSS         // Where the malicious script comes from the current HTTP request.
+- Stored XSS            // Where the malicious script comes from the website's database.
+- DOM-based XSS         // Where the vulnerability exists in client-side code rather than server-side code.
 
 What can XSS abused for:
 
@@ -24,9 +24,11 @@ What can XSS abused for:
 Top XSS prevention controls:
 
 - Filter and sanitize all user input and input boxes (Disallow specific characters etc..) - Use OWASP XSS Evasion sheet for proactive controls
+- Enforce Client-Side Validation - HTML (Pattern) / JavaScript (Yup / Validator.js / regex)
 - Enforce secure coding (SAST / DAST / RASP / IAST)
 - Implement CSP (Content Secuirty Policy) - CSP controls where scripts can be sourced from (Only add authorized domains / partners)
 - Implement WAF (Configured according to threat-centric controls)
+- Implement RASP - Monitors code instructions in real-time 
 
 
 

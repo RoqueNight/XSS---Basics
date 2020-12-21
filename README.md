@@ -244,10 +244,11 @@ const NoVulnerability2 = (req, res) => {
     }
 }
 
-```
-JavaScript Code Example - Preventing specific characters 
 
-In the below code , we escape certian characters and convert them to HTML entities so that it gets parsed as text instead of actual code 
+```
+JavaScript Code Example - Blacklist Specific Characters
+
+The below code will escape specific characters and convert them to HTML entities to help validate user-supplied input against opportunistic threats
 ```
 String.prototype.escape = function() {
     var tagsToReplace = {
@@ -261,12 +262,21 @@ String.prototype.escape = function() {
 };
 ```
 
-General Tips to Avoid XSS in Web Applications:
+General Tips to Avoid XSS:
 
-- Implement CSP (Content Security Policy)
-- Use HTTPOnly Cookie Flag
-- Consider Using an Auto-Escaping Template System such as AngularJS Strict Contextual Escaping
-- Use Modern up to date JS frameworks 
-- Utilize JavaScript libraries such as Yup & validator.js to help secure your code by validating user-suplied data
-
-
+- Follow a well-developed SSDLC to help ensure that code gets developed according to secuirty from its foundation
+- Use SAST / DAST & IAST tools to help identify possible code-centric security vulnerabilities
+- Make use of modern JS frameworks that are well updated & maintained
+- Understand how the web application works as well as how the code-flows after it accepts user-supplied input 
+- Follow the variables that stores user-supplied input and ensure it gets escaped , sanitized & does not get passed to dangerous code fucntions() such as eval()
+- Utilize JS libraries such as Yup / validator.js to help sanitize code 
+- Enforce HTML Entity Encoding
+- Enforce URL Encoding
+- Utilize Strict Structural Validation for CSS
+- Implement & Enforce HTML user validation via attributes such as pattern or by utilizng HTML Sanitizer 
+- Consider Canonicalize user-supplied input
+- Whitelist backend URL'S and make use of HTTPS for all backend systems
+- Make use of the HTTPOnly Cookie Flag 
+- Enforce a strict CSP policy to only whitelist domains from where javascript can be sourced from 
+- Implement WAF as a safety net to filter and block the majority of web application attacks
+- Implement RASP to monitor code-flow and to detected code-flow violations that could result in malicious behaviour

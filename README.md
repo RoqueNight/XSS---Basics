@@ -78,7 +78,29 @@ HTML Payloads
 
 
 ```
-Unsecure PHP XSS Code Example
+
+Unsecure PHP Vulnerable Code Example 1
+
+```
+<center><h1><font color="red">PHP XSS Test</font></h1>
+<hr>
+<form method="post">
+  <textarea name="text" placeholder="Place Text"></textarea></br>
+  <input type="submit" name="bouton" value="Enter" />
+</form>
+
+<?php
+if(isset($_POST["bouton"])){
+  $text = $_POST["text"];
+  echo "<strong>Data:</strong>  ".$text;
+}
+
+
+ ?>
+</center>
+
+```
+Unsecure PHP XSS Code Example 2
 
 The below code snippet is vulnerable to XSS becuase the "name" paramater receives user-supplied input that is not being validated before it gets passed to HTML for output
 ```

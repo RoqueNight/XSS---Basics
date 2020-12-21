@@ -268,7 +268,7 @@ General Tips to Avoid XSS:
 - Use SAST / DAST & IAST tools to help identify possible code-centric security vulnerabilities
 - Make use of modern JS frameworks that are well updated & maintained
 - Understand how the web application works as well as how the code-flows after it accepts user-supplied input 
-- Follow the variables that stores user-supplied input and ensure it gets escaped , sanitized & does not get passed to dangerous code fucntions() such as eval()
+- Follow the variables that stores user-supplied input and ensure it gets escaped , sanitized & does not get passed to dangerous code fucntions() such as eval() that could result in code execution via a child_process
 - Utilize JS libraries such as Yup / validator.js to help sanitize code 
 - Enforce HTML Entity Encoding
 - Enforce URL Encoding
@@ -280,3 +280,5 @@ General Tips to Avoid XSS:
 - Enforce a strict CSP policy to only whitelist domains from where javascript can be sourced from 
 - Implement WAF as a safety net to filter and block the majority of web application attacks
 - Implement RASP to monitor code-flow and to detected code-flow violations that could result in malicious behaviour
+- Perform red team simulations on your web application to help obtain external visibility and to test the effectiveness of your proactive security controls 
+- Consider a bug bountry program for your critical web applications to help obtain external security validation and to reinforce your overall security posture 

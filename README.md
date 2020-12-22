@@ -21,18 +21,8 @@ What can XSS abused for:
 - Perform virtual defacement of the web site.
 - Inject trojan functionality into the web site.
 
-Top XSS prevention controls:
 
-- Filter and sanitize all user input and input boxes (Disallow specific characters etc..) - Use OWASP XSS Evasion sheet for proactive controls
-- Enforce Client-Side Validation - HTML (Pattern) / JavaScript (Yup / Validator.js / regex)
-- Enforce secure coding (SAST / DAST / RASP / IAST)
-- Implement CSP (Content Secuirty Policy) - CSP controls where scripts can be sourced from (Only add authorized domains / partners)
-- Implement WAF (Configured according to threat-centric controls)
-- Implement RASP - Monitors code instructions in real-time 
-
-
-
-Testing if webiste input boxes / search boxes are vulnerable to XSS
+Testing if any website input boxes / search boxes are vulnerable to XSS
 
 ```
 Basic Payloads:
@@ -199,7 +189,48 @@ if (!isset($_GET['name']))  // Accept user input
   echo "<h1>Hi $name!";
 }
 
+```
+PHP Functions to secure against XSS
 
+htmlentities() - Function convert all applicable characters to HTML entities
+
+htmlspecialchars() - Function convert the special characters to HTML entities
+
+htmlentities():
+
+Below is a code example of how the htmlentities() function can be used to convert special characters to HTML entities to avoid XSS code execution
+```
+<?php 
+  
+// String convertable to htmlentities  
+$str = '<a href="https://www.test.org">Test</a>'; 
+  
+// It will convert htmlentities and print them 
+echo htmlentities( $str ); 
+?> 
+```
+Output
+```
+&lt;a href=&quot;https://www.test.org&quot;&gt;Test&lt;/a&gt;
+```
+htmlspecialchars():
+
+Below is a code example of how the htmlspecialchars() function can be used to convert special characters to HTML entities to avoid XSS code execution
+```
+<?php 
+  
+// Example of htmlspecialchars() function 
+  
+// String to be converted 
+$str = '"test.org" Go to Test'; 
+  
+// Converts double and single quotes 
+echo htmlspecialchars($str, ENT_QUOTES);  
+?> 
+```
+Output
+```
+&quot;test.org&quot; Go to Test
 ```
 
 Basic PHP XSS HTML Injection Example
